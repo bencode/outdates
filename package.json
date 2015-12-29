@@ -1,7 +1,7 @@
 {
   "name": "outdates",
   "version": "1.0.0",
-  "description": "show dependences modules latest version",
+  "description": "show dependencies package's latest version in repository",
   "bin": {
     "outdates": "bin/outdates.js"
   },
