@@ -1,0 +1,45 @@
+{
+  "name": "outdates",
+  "version": "1.0.0",
+  "description": "show dependences modules latest version",
+  "bin": {
+    "outdates": "bin/outdates.js"
+  },
+  "scripts": {
+    "lint": "node ./node_modules/.bin/eslint lib test",
+    "test": "node ./node_modules/.bin/_mocha --harmony --require 'should' --reporter spec --recursive --bail --check-leaks test/",
+    "cov": "node ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- -u exports --require 'should' --recursive --bail --check-leaks test/",
+    "travis": "node ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- -u exports --require 'should' --recursive --bail --check-leaks test/",
+    "all": "npm run lint && npm run test && npm run cov"
+  },
+  "git-pre-hooks": {
+    "pre-commit": "npm run lint",
+    "pre-push": "npm run test",
+    "pre-release": "npm run travis",
+    "post-release": "npm publish"
+  },
+  "dependences": {},
+  "devDependencies": {
+    "eslint": "^1.10.3",
+    "eslint-config-bce": "^0.5.0",
+    "git-pre-hooks": "^1.2.0",
+    "istanbul": "^0.4.1",
+    "mocha": "^2.3.4",
+    "should": "^8.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bencode/outdates.git"
+  },
+  "author": "bencode@163.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bencode/outdates/issues"
+  },
+  "homepage": "https://github.com/bencode/outdates#readme",
+  "dependencies": {
+    "co": "^4.6.0",
+    "semver": "^5.1.0",
+    "urllib": "^2.6.0"
+  }
+}
