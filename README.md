@@ -1,5 +1,8 @@
 # outdates
 
+show dependencies/devDependencies package's latest version in remote repository
+
+## Usage
 
 ```shell
 npm install -g outdates
@@ -10,7 +13,16 @@ cd ${path}
 outdates
 ```
 
-will output
+## Exp
+
+```
+cd work
+git clone git@github.com:request/request.git
+cd request
+outdates
+```
+
+will output:
 
 ```
                         dependencies
