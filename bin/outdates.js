@@ -36,19 +36,25 @@ function run(root) {
   }
 
   const info = require(path);
+
+  const registry = (info.publishConfig || {}).registry ||
+      'http://registry.npmjs.com';
+
+  console.log('request package info from: %s\n', registry);
+
   const deps = info.dependencies || {};
   const ddeps = info.devDependencies || {};
 
   co(function* () {
-    yield* lookup('dependencies', info, deps);
-    yield* lookup('devDependencies', info, ddeps);
+    yield* lookup('dependencies', registry, deps);
+    yield* lookup('devDependencies', registry, ddeps);
   }).catch(e => {
-    throw e;
+    console.error(e.stack);
   });
 }
 
 
-function* lookup(title, info, deps) {
+function* lookup(title, registry, deps) {
   console.log(center(title, 60));
   console.log(line('-', 60));
   console.log(left('name', 40) + left('version', 10) + left('latest', 10));
@@ -56,10 +62,12 @@ function* lookup(title, info, deps) {
 
   for (const name in deps) {
     const version = deps[name];
-    const rinfo = yield* getPkgInfo(info, name);
-    const rversion = rinfo['dist-tags'].latest;
-    let message = left(name, 40) + left(version, 10) + left(rversion, 10);
-    if (!semver.satisfies(rversion, version)) {
+    const rinfo = yield* getPkgInfo(registry, name);
+    const rversion = (rinfo['dist-tags'] || {}).latest;
+
+    let message = left(name, 40) + left(version, 10) + left(rversion || 'unknow', 10);
+
+    if (!rversion || semver.satisfies(rversion, version)) {
       message = yellow(message);
     }
     console.log(message);
@@ -69,9 +77,7 @@ function* lookup(title, info, deps) {
 }
 
 
-function* getPkgInfo(info, name) {
-  const registry = (info.publishConfig || {}).registry ||
-      'http://registry.npmjs.com';
+function* getPkgInfo(registry, name) {
   const url = registry + '/' + name;
   const result = yield urllib.request(url);
   return JSON.parse(result.data.toString());
