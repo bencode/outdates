@@ -67,7 +67,7 @@ function* lookup(title, registry, deps) {
 
     let message = left(name, 40) + left(version, 10) + left(rversion || 'unknow', 10);
 
-    if (!rversion || semver.satisfies(rversion, version)) {
+    if (!rversion || !semver.satisfies(rversion, version)) {
       message = yellow(message);
     }
     console.log(message);
