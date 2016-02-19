@@ -13,6 +13,13 @@ cd ${path}
 outdates
 ```
 
+with other registry
+
+```shell
+outdates --registry=http://registry.npm.alibaba-inc.com
+```
+
+
 ## Exp
 
 ```

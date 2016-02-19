@@ -1,6 +1,6 @@
 {
   "name": "outdates",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "show dependencies/devDependencies package's latest version in remote repository",
   "bin": {
     "outdates": "bin/outdates.js"
@@ -15,15 +15,16 @@
   "dependencies": {
     "co": "~4.6.0",
     "commander": "~2.9.0",
+    "output-formatter": "~1.0.1",
     "semver": "~5.1.0",
-    "urllib": "~2.6.0"
+    "urllib": "~2.7.1"
   },
   "devDependencies": {
-    "eslint": "~1.10.3",
-    "eslint-config-bce": "~0.5.0",
+    "eslint": "~2.1.0",
+    "eslint-config-bce": "~1.0.0",
     "istanbul": "~0.4.1",
-    "mocha": "~2.3.4",
-    "should": "~8.0.2"
+    "mocha": "~2.4.5",
+    "should": "~8.2.2"
   },
   "repository": {
     "type": "git",
